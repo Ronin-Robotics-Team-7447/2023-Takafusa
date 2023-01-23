@@ -5,22 +5,21 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.SwerveDrivebase;
 
-public class DriveManually extends CommandBase {
-  DriveTrain m_driveTrain; 
-  /** Creates a new DriveManually. */
-  public DriveManually(DriveTrain dt) {
-    DriveTrain m_driveTrain = dt;
-    addRequirements(m_driveTrain);
+public class setFieldOriented extends CommandBase {
+  SwerveDrivebase m_swerveDrivebase;
+  /** Creates a new setFieldOriented. */
+  public setFieldOriented(SwerveDrivebase sd) {
+    m_swerveDrivebase = sd;
+    addRequirements(sd);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
-    
+    m_swerveDrivebase.zeroHeading();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
