@@ -7,12 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.JoystickConstants;
-import frc.robot.Constants.Ports;
-import frc.robot.commands.SwerveJoystickTeleop;
-import frc.robot.commands.setFieldOriented;
-import frc.robot.subsystems.SwerveDrivebase;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.DriveManually;
+import frc.robot.subsystems.DriveTrain;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -25,33 +22,22 @@ public class RobotContainer {
   // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   // Subsystems
-  private final SwerveDrivebase m_swerveDrivebase;
+  private final DriveTrain m_driveTrain;
 
   // Commands
-  private final setFieldOriented m_setFieldOriented;
+  private final DriveManually m_driveManually; 
 
   // Controller
-  private Joystick m_joystick;
-  public static JoystickButton xButton;
+  private final Joystick m_joystick;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Subsystem Assignment
-    m_swerveDrivebase = new SwerveDrivebase();
+    m_driveTrain = new DriveTrain();
 
-    // Commands Assignment
-    m_setFieldOriented = new setFieldOriented(m_swerveDrivebase);
+    m_driveManually = new DriveManually(m_driveTrain);
 
-    m_joystick = new Joystick(Ports.driverJoystickPort);
-    xButton = new JoystickButton(m_joystick, JoystickConstants.xButton);
-    
-    m_swerveDrivebase.setDefaultCommand(new SwerveJoystickTeleop(m_swerveDrivebase,
-      () -> -m_joystick.getRawAxis(JoystickConstants.driverJoystickYAxis),
-      () -> m_joystick.getRawAxis(JoystickConstants.driverJoystickXAxis),
-      () -> m_joystick.getRawAxis(JoystickConstants.driverJoystickRotAxis),
-      () -> !m_joystick.getRawButton(JoystickConstants.driverJoystickFieldOrientedButtonIdx)));
-
+    m_joystick = new Joystick(Constants.joystickPort);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -62,9 +48,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
-    xButton.onTrue(m_setFieldOriented);
-  }
+  private void configureButtonBindings() {}
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
