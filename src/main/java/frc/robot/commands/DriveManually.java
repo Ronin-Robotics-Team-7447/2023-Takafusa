@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Swerve;
 
 public class DriveManually extends CommandBase {
-  DriveTrain m_driveTrain; 
+  Swerve m_driveTrain; 
   /** Creates a new DriveManually. */
-  public DriveManually(DriveTrain dt) {
-    DriveTrain m_driveTrain = dt;
+  public DriveManually(Swerve dt) {
+    Swerve m_driveTrain = dt;
     addRequirements(m_driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
