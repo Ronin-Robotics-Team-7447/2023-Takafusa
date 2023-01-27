@@ -22,6 +22,10 @@ public class Constants {
     /** All joystick, button, and axis IDs. */
     public static class kControls {
       public static final double AXIS_DEADZONE = 0.1;
+
+      // Please test numbers 
+      public static final int rTrigger = 1;
+      public static final int lTrigger = 2;
   
       public static final int DRIVE_JOYSTICK_ID = 0;
   
@@ -140,4 +144,8 @@ public class Constants {
       public static final double MAX_VELOCITY_METERS_PER_SECOND = 2.0;
       public static final double MAX_ACCEL_METERS_PER_SECOND_SQUARED = 5.0;
     }
+//Intakes Constants
+    public static final int takeInOut = 1;
+    public static final double speed_in = 0.5;
+    public static final double speed_out = -0.5;
   }

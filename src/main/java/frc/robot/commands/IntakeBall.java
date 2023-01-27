@@ -5,28 +5,28 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Swerve;
+import frc.robot.Constants;
+import frc.robot.subsystems.Intake;
 
-public class DriveManually extends CommandBase {
-  Swerve m_driveTrain; 
-  /** Creates a new DriveManually. */
-  public DriveManually(Swerve dt) {
-    Swerve m_driveTrain = dt;
-    addRequirements(m_driveTrain);
+public class IntakeBall extends CommandBase {
+  Intake m_intake;
+  /** Creates a new OuttakeBall. */
+  public IntakeBall(Intake i) {
+    m_intake = i;
+    addRequirements(i);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-    
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
-
+  public void execute() {
+    m_intake.IntakeSpeed(Constants.speed_in);
+  }
+  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
