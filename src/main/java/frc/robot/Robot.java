@@ -4,9 +4,13 @@
 
 package frc.robot;
 
+import com.dacubeking.AutoBuilder.robot.robotinterface.AutonomousContainer;
+import com.dacubeking.AutoBuilder.robot.robotinterface.CommandTranslator;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Swerve;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -25,9 +29,26 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    final Swerve swerve = Swerve.getInstance();
+
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    AutonomousContainer.getInstance().initialize(
+      true, //isHolonomic - Is the robot using a holonomic drivetrain? (ex: swerve or mecanum)
+      new CommandTranslator(
+        swerve::setAutoPath, //The consumer to call to set the new trajectory
+        swerve::stopMovement, //The runnable to call to stop the robot from moving
+        swerve::setAutoRotation, //The consumer to call to set the autonomous rotation (can be null is the robot is not holonomic)
+        swerve::isFinished, //The boolean supplier to call to check if the trajectory is done. This lambada should return false until the path has been fully (and is within error of the final position/rotation) driven.
+        swerve::getAutoElapsedTime, //The double supplier to call to get the elapsed time of the trajectory. This lambada must return 0.0 immediately after a new trajectory is set and should return the elapsed time of the current trajectory that is being driven.
+        swerve::resetPosition, //The consumer to call to set the initial pose of the robot at the start of autonomous
+        false //Whether to run the commands on the main thread. If this is true, the commands will be run on the main thread. If this is false, the commands will be run on the autonomous thread. If you are unsure, it is safer to leave this as true. If you've designed your robot code to be thread safe, you can set this to false. It will allow the methods you call to be blocking which can simplify some code.
+      ), 
+      false, //crashOnError – Should the robot crash on error? If this is enabled, and an auto fails to load, the robot will crash. If this is disabled, the robot will skip the invalid auto and continue to the next one.
+      this //timedRobot – The timed robot (should be able to just use the 'this' keyword) to use to create the period function for the autos. This can be null if you're running autos asynchronously.
+      );
   }
 
   /**

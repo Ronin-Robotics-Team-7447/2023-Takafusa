@@ -19,29 +19,20 @@ import frc.robot.Constants;
  */
 public class RobotContainer {
   public final Joystick driver;
-
   public final JoystickButton lTrigger;  
   public final JoystickButton rTrigger;
-
   public final Swerve swerve;
-
   public final AutoCommands auto;
-
   private final IntakeBall m_IntakeBall;
   private final OuttakeBall m_OuttakeBall;
-
-
   private final Intake m_intake;
 
   public RobotContainer() {
     driver = new Joystick(Constants.kControls.DRIVE_JOYSTICK_ID);
     lTrigger = new JoystickButton(driver, Constants.kControls.lTrigger);
     rTrigger = new JoystickButton(driver, Constants.kControls.rTrigger);
-
-    swerve = new Swerve();
-
+    swerve = Swerve.getInstance();
     auto = new AutoCommands(swerve);
-
     m_intake = new Intake();
     m_IntakeBall = new IntakeBall(m_intake);   
     m_OuttakeBall = new OuttakeBall(m_intake);

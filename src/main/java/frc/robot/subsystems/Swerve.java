@@ -6,11 +6,13 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -23,6 +25,19 @@ public class Swerve extends SubsystemBase {
   private final SwerveDriveOdometry swerveOdometry;
 
   private final AHRS gyro;
+
+  private static Swerve INSTANCE;
+
+  /**
+   * Get instance method
+   */
+
+  public static Swerve getInstance() {
+    if ( INSTANCE == null ) {
+      INSTANCE = new Swerve();
+    }
+    return INSTANCE;
+  }
 
   public Swerve() {
     gyro = new AHRS();
@@ -148,5 +163,27 @@ public class Swerve extends SubsystemBase {
           () -> module.getAngle().getDegrees(),
           null);
     }
+  }
+
+  public void setAutoPath(Trajectory trajectory) {
+    //TODO
+  }
+
+  public void stopMovement() {
+    //TODO
+  }
+
+  public boolean isFinished() {
+    //TODO
+    return false;
+  }
+
+  public double getAutoElapsedTime() {
+    //TODO
+    return 0;
+  }
+
+  public void resetPosition(Translation2d pose) {
+    // TODO
   }
 }
