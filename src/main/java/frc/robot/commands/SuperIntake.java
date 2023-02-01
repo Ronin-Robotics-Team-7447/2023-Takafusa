@@ -5,10 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.Intake;
 
 public class SuperIntake extends CommandBase {
-  /** Creates a new SuperIntake. */
-  public SuperIntake() {
+  Intake m_intake;
+  /** Creates a new OuttakeBall. */
+  public SuperIntake(Intake i) {
+    m_intake = i;
+    addRequirements(i);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -18,8 +23,10 @@ public class SuperIntake extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
-
+  public void execute() {
+    m_intake.IntakeSpeed(Constants.highSpeed_in);
+  }
+  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}

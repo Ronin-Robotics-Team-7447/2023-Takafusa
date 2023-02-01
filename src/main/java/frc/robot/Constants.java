@@ -24,8 +24,8 @@ public class Constants {
       public static final double AXIS_DEADZONE = 0.1;
 
       // Please test numbers 
-      public static final int rTrigger = 1;
-      public static final int lTrigger = 2;
+      public static final int rTrigger = 5;
+      public static final int lTrigger = 6;
   
       public static final int DRIVE_JOYSTICK_ID = 0;
   
@@ -58,6 +58,10 @@ public class Constants {
       public static final double ANGLE_ROTATIONS_TO_RADIANS = (Math.PI * 2) / ANGLE_GEAR_RATIO;
       public static final double ANGLE_RPM_TO_RADIANS_PER_SECOND = DRIVE_ROTATIONS_TO_METERS / 60.0;
   
+      // Joystick Port Constants
+      public static final int joystickPort = 1;
+
+
       /** Speed ramp. */
       public static final double OPEN_LOOP_RAMP = 0.25;
       public static final double CLOSED_LOOP_RAMP = 0.0;
@@ -148,4 +152,7 @@ public class Constants {
     public static final int takeInOut = 1;
     public static final double speed_in = 0.5;
     public static final double speed_out = -0.5;
+    public static final double hold_speed = 0.1;
+    public static final double highSpeed_in = 0.8;
+    public static final double highSpeed_out = -0.8;
   }
