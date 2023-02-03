@@ -17,7 +17,6 @@ import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.SwerveModule;
 
 public class Swerve extends SubsystemBase {
   private final SwerveModule[] modules;
@@ -44,10 +43,10 @@ public class Swerve extends SubsystemBase {
     zeroGyro();
 
     modules = new SwerveModule[] {
-      new SwerveModule(0, Constants.kSwerve.MOD_0_Constants, false, 0),
-      new SwerveModule(1, Constants.kSwerve.MOD_1_Constants, false, 0),
-      new SwerveModule(2, Constants.kSwerve.MOD_2_Constants, false, 0),
-      new SwerveModule(3, Constants.kSwerve.MOD_3_Constants, false, 0),
+      new SwerveModule(0, Constants.kSwerve.MOD_0_Constants),
+      new SwerveModule(1, Constants.kSwerve.MOD_1_Constants),
+      new SwerveModule(2, Constants.kSwerve.MOD_2_Constants),
+      new SwerveModule(3, Constants.kSwerve.MOD_3_Constants),
     };
 
     swerveOdometry = new SwerveDriveOdometry(Constants.kSwerve.KINEMATICS, getYaw(), getPositions());

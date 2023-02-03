@@ -27,7 +27,7 @@ public class AutoCommands {
     this.swerve = swerve;
 
     dropDown = new SendableChooser<>();
-    dropDown.addOption("Example", run(() -> {
+    dropDown.addOption("the test auto", run(() -> {
       getCommand("Test", true);
     }));
 

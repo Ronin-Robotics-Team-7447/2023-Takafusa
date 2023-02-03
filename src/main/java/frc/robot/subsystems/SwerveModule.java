@@ -7,7 +7,6 @@ import com.ctre.phoenix.sensors.SensorTimeBase;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
 
-import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
@@ -39,7 +38,7 @@ public class SwerveModule {
 
     private double lastAngle;
 
-    public SwerveModule(int moduleNumber, SwerveModuleConstants constants, boolean absoluteEncoderReversed, double absoluteEncoderOffsetRad) {
+    public SwerveModule(int moduleNumber, SwerveModuleConstants constants) {
         this.moduleNumber = moduleNumber;
         
         driveMotor = new CANSparkMax(constants.driveMotorID, MotorType.kBrushless);
@@ -52,9 +51,8 @@ public class SwerveModule {
         anglePID = angleMotor.getPIDController();
 
         m_absoluteEncoder = new AnalogInput(constants.absoluteEncoderID);
-        this.m_absoluteEncoderReversed = absoluteEncoderReversed;
-        this.m_absoluteEncoderOffsetRad = absoluteEncoderOffsetRad;
-
+        m_absoluteEncoderReversed = constants.absoluteEncoderReversed;
+        m_absoluteEncoderOffsetRad = constants.absoluteEncoderOffsetRad;
 
         configureDevices();
         lastAngle = getState().angle.getRadians();
@@ -147,6 +145,5 @@ public class SwerveModule {
         canCoderConfiguration.sensorDirection = Constants.kSwerve.CANCODER_INVERSION;
         canCoderConfiguration.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
         canCoderConfiguration.sensorTimeBase = SensorTimeBase.PerSecond;
-        
     }
 }

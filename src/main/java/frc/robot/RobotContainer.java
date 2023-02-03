@@ -12,7 +12,6 @@ import frc.robot.commands.SuperIntake;
 import frc.robot.commands.SuperOuttake;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
-import frc.robot.Constants;
 import frc.robot.commands.AutoCommands;
 
 /**
@@ -83,7 +82,7 @@ public class RobotContainer {
     lTrigger.onTrue(m_IntakeBall);
     rTrigger.onTrue(m_OuttakeBall);
     bButton.onTrue(m_SuperIntake);
-
+    xButton.onTrue(m_SuperOuttake);
 
     new JoystickButton(driver, Constants.kControls.GYRO_RESET_BUTTON)
       .onTrue(swerve.zeroGyroCommand());

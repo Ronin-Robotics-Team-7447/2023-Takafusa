@@ -105,26 +105,26 @@ public class Constants {
        * This is to make offset slightly more accurate and easier to measure.
        */
       public static final SwerveModuleConstants MOD_0_Constants = new SwerveModuleConstants(
-        1,
-        2,
-        3,
+        4,
+        5,
+        0,
         203.115234, true
       );
   
       // Drive Motor Id, angle Motor ID, absolute Encoder Id, m_absoluteEncoder OffsetRad, absoluteEncoder Reversed
 
       public static final SwerveModuleConstants MOD_1_Constants = new SwerveModuleConstants(
-        4,
-        5,
         6,
+        7,
+        1,
         191.074219,
         true
       );
   
       public static final SwerveModuleConstants MOD_2_Constants = new SwerveModuleConstants(
-        7,
         8,
         9,
+        2,
         203.906250,
         true
       );
@@ -132,7 +132,7 @@ public class Constants {
       public static final SwerveModuleConstants MOD_3_Constants = new SwerveModuleConstants(
         10,
         11,
-        12,
+        3,
         155.214844,
         true
       );
