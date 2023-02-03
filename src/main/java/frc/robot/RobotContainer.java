@@ -13,6 +13,7 @@ import frc.robot.commands.SuperOuttake;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
 import frc.robot.Constants;
+import frc.robot.commands.AutoCommands;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
