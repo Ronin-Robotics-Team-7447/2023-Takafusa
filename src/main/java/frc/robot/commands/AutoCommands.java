@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.FollowPathWithEvents;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -10,7 +11,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import static edu.wpi.first.wpilibj2.command.Commands.*;
 
+import java.util.HashMap;
+
 import frc.robot.Constants;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
 
 /**
@@ -18,13 +22,15 @@ import frc.robot.subsystems.Swerve;
  */
 public class AutoCommands {
   private final Swerve swerve;
+  private final Intake intake;
   private final SendableChooser<Command> dropDown;
 
   /**
    * Define all auto commands.
    */
-  public AutoCommands(Swerve swerve) {
+  public AutoCommands(Swerve swerve, Intake intake) {
     this.swerve = swerve;
+    this.intake = intake;
 
     dropDown = new SendableChooser<>();
     dropDown.addOption("the test auto", run(() -> {
