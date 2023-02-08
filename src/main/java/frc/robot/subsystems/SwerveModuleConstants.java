@@ -4,14 +4,12 @@ public class SwerveModuleConstants {
     public final int driveMotorID;
     public final int angleMotorID;
     public final int absoluteEncoderID;
-    public final boolean absoluteEncoderReversed;
-    public final double absoluteEncoderOffsetRad;
+    public final double canCoderOffsetDegrees;
 
-    public SwerveModuleConstants(int driveMotorID, int angleMotorID, int absoluteEncoderID, double absoluteEncoderOffsetRad, boolean absoluteEncoderReversed) {
+    public SwerveModuleConstants(int driveMotorID, int angleMotorID, int absoluteEncoderID, double canCoderOffsetDegrees) {
         this.driveMotorID = driveMotorID;
         this.angleMotorID = angleMotorID;
         this.absoluteEncoderID = absoluteEncoderID;
-        this.absoluteEncoderReversed = absoluteEncoderReversed;
-        this.absoluteEncoderOffsetRad = absoluteEncoderOffsetRad;
+        this.canCoderOffsetDegrees = canCoderOffsetDegrees;
     }
 }

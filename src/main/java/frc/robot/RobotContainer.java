@@ -10,8 +10,11 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -32,39 +35,39 @@ import frc.robot.commands.AutoCommands;
  */
 public class RobotContainer {
   public final Joystick driver;
-  public final Trigger lTrigger;  
-  public final Trigger rTrigger;
-  public final Trigger xButton;  
-  public final Trigger yButton;
-  public final Trigger bButton;  
-  public final Trigger aButton;
+  // public final Trigger lTrigger;  
+  // public final Trigger rTrigger;
+  // public final Trigger xButton;  
+  // public final Trigger yButton;
+  // public final Trigger bButton;  
+  // public final Trigger aButton;
 
   public XboxController m_XboxController;
 
   public final Swerve swerve;
-  public final AutoCommands auto;
-  private final IntakeBall m_IntakeBall;
-  private final OuttakeBall m_OuttakeBall;
-  private final SuperIntake m_SuperIntake;
-  private final SuperOuttake m_SuperOuttake;
-  private final Intake m_intake;
+  // public final AutoCommands auto;
+  // private final IntakeBall m_IntakeBall;
+  // private final OuttakeBall m_OuttakeBall;
+  // private final SuperIntake m_SuperIntake;
+  // private final SuperOuttake m_SuperOuttake;
+  // private final Intake m_intake;
 
   public RobotContainer() {
     driver = new Joystick(Constants.kControls.DRIVE_JOYSTICK_ID);
-    lTrigger = new JoystickButton(driver, Constants.kControls.lTrigger);
-    rTrigger = new JoystickButton(driver, Constants.kControls.rTrigger);
-    xButton = new JoystickButton(driver, 1);
-    yButton = new JoystickButton(driver, 4);
-    bButton = new JoystickButton(driver, 3);
-    aButton = new JoystickButton(driver, 2);
+    // lTrigger = new JoystickButton(driver, Constants.kControls.lTrigger);
+    // rTrigger = new JoystickButton(driver, Constants.kControls.rTrigger);
+    // xButton = new JoystickButton(driver, 1);
+    // yButton = new JoystickButton(driver, 4);
+    // bButton = new JoystickButton(driver, 3);
+    // aButton = new JoystickButton(driver, 2);
 
     swerve = Swerve.getInstance();
-    m_intake = new Intake();
-    auto = new AutoCommands(swerve, m_intake);
-    m_IntakeBall = new IntakeBall(m_intake);   
-    m_OuttakeBall = new OuttakeBall(m_intake);
-    m_SuperIntake = new SuperIntake(m_intake);
-    m_SuperOuttake = new SuperOuttake(m_intake);
+    // m_intake = new Intake();
+    // auto = new AutoCommands(swerve, m_intake);
+    // m_IntakeBall = new IntakeBall(m_intake);   
+    // m_OuttakeBall = new OuttakeBall(m_intake);
+    // m_SuperIntake = new SuperIntake(m_intake);
+    // m_SuperOuttake = new SuperOuttake(m_intake);
 
     // This will load the file "FullAuto.path" and generate it with a max velocity of 4 m/s and a max acceleration of 3 m/s^2
     // for every path in the group
@@ -73,7 +76,7 @@ public class RobotContainer {
     // This is just an example event map. It would be better to have a constant, global event map
     // in your code that will be used by all path following commands.
     HashMap<String, Command> eventMap = new HashMap<>();
-    eventMap.put("IntakeBall", m_IntakeBall);
+    //eventMap.put("IntakeBall", m_IntakeBall);
 
     // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
     SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
@@ -88,7 +91,7 @@ public class RobotContainer {
         swerve // The drive subsystem. Used to properly set the requirements of path following commands
     );
 
-    Command auto_name_command = autoBuilder.fullAuto(pathGroup);
+    //Command auto_name_command = autoBuilder.fullAuto(pathGroup);
 
     // Configure button bindings
     configureButtonBindings();
@@ -101,11 +104,19 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    SlewRateLimiter filter = new SlewRateLimiter(0.5);
 
+    // swerve.setDefaultCommand(swerve.drive(
+    //   () -> filter.calculate(-driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS)),
+    //   () -> -driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS),
+    //   () -> filter.calculate(-driver.getRawAxis(Constants.kControls.ROTATION_AXIS)),
+    //   true,
+    //   false
+    // ));
 
     swerve.setDefaultCommand(swerve.drive(
       () -> -driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS),
-      () -> -driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS), 
+      () -> -driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS),
       () -> -driver.getRawAxis(Constants.kControls.ROTATION_AXIS),
       true,
       false
@@ -113,13 +124,13 @@ public class RobotContainer {
 
     //  BUTTONS
 
-    lTrigger.onTrue(m_IntakeBall);
-    rTrigger.onTrue(m_OuttakeBall);
-    bButton.onTrue(m_SuperIntake);
-    xButton.onTrue(m_SuperOuttake);
+    // lTrigger.onTrue(m_IntakeBall);
+    // rTrigger.onTrue(m_OuttakeBall);
+    // bButton.onTrue(m_SuperIntake);
+    // xButton.onTrue(m_SuperOuttake);
 
-    new JoystickButton(driver, Constants.kControls.GYRO_RESET_BUTTON)
-      .onTrue(swerve.zeroGyroCommand());
+    // new JoystickButton(driver, Constants.kControls.GYRO_RESET_BUTTON)
+    //  .onTrue(swerve.zeroGyroCommand());
   }
 
     /**
@@ -128,6 +139,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return auto.getSelectedCommand();
+    //return auto.getSelectedCommand();
+    return null;
   }
 }

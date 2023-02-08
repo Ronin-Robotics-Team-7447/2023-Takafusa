@@ -33,14 +33,14 @@ public class Constants {
       public static final int TRANSLATION_Y_AXIS = XboxController.Axis.kLeftY.value;
       public static final int ROTATION_AXIS = XboxController.Axis.kRightX.value;
   
-      public static final int GYRO_RESET_BUTTON = XboxController.Button.kY.value;
+      //public static final int GYRO_RESET_BUTTON = XboxController.Button.kY.value;
     }
   
     /** All swerve constants. */
     public static class kSwerve {
       /** Constants that apply to the whole drive train. */
-      public static final double TRACK_WIDTH = Units.inchesToMeters(19.5); // Width of the drivetrain measured from the middle of the wheels.
-      public static final double WHEEL_BASE = Units.inchesToMeters(19.5); // Length of the drivetrain measured from the middle of the wheels.
+      public static final double TRACK_WIDTH = Units.inchesToMeters(25); // Width of the drivetrain measured from the middle of the wheels.
+      public static final double WHEEL_BASE = Units.inchesToMeters(25); // Length of the drivetrain measured from the middle of the wheels.
       public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
       public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
   
@@ -51,15 +51,15 @@ public class Constants {
         new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0)
       );
   
-      public static final double DRIVE_GEAR_RATIO = 6.75 / 1.0; // 6.75:1
+      public static final double DRIVE_GEAR_RATIO = 7.13 / 1.0; // 6.75:1
       public static final double DRIVE_ROTATIONS_TO_METERS = WHEEL_CIRCUMFERENCE / DRIVE_GEAR_RATIO;
       public static final double DRIVE_RPM_TO_METERS_PER_SECOND = DRIVE_ROTATIONS_TO_METERS / 60.0;
-      public static final double ANGLE_GEAR_RATIO = 12.8 / 1.0; // 12.8:1
+      public static final double ANGLE_GEAR_RATIO = 13.71 / 1.0; // 12.8:1
       public static final double ANGLE_ROTATIONS_TO_RADIANS = (Math.PI * 2) / ANGLE_GEAR_RATIO;
       public static final double ANGLE_RPM_TO_RADIANS_PER_SECOND = DRIVE_ROTATIONS_TO_METERS / 60.0;
   
       // Joystick Port Constants
-      public static final int joystickPort = 1;
+      public static final int joystickPort = 0;
 
 
       /** Speed ramp. */
@@ -104,37 +104,34 @@ public class Constants {
        * CanCoder offset is in DEGREES, not radians like the rest of the repo.
        * This is to make offset slightly more accurate and easier to measure.
        */
-      public static final SwerveModuleConstants MOD_0_Constants = new SwerveModuleConstants(
-        4,
+      
+       // Front Left 
+       public static final SwerveModuleConstants MOD_0_Constants = new SwerveModuleConstants(
         5,
-        0,
-        203.115234, true
+        4,
+        1,
+        180
       );
   
-      // Drive Motor Id, angle Motor ID, absolute Encoder Id, m_absoluteEncoder OffsetRad, absoluteEncoder Reversed
-
       public static final SwerveModuleConstants MOD_1_Constants = new SwerveModuleConstants(
+        3,
         6,
-        7,
-        1,
-        191.074219,
-        true
+        0,
+        0
       );
   
       public static final SwerveModuleConstants MOD_2_Constants = new SwerveModuleConstants(
-        8,
-        9,
         2,
-        203.906250,
-        true
+        8,
+        2,
+        180
       );
   
       public static final SwerveModuleConstants MOD_3_Constants = new SwerveModuleConstants(
-        10,
-        11,
+        1,
+        7,
         3,
-        155.214844,
-        true
+        0
       );
     }
   

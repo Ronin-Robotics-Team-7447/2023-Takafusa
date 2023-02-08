@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -26,11 +28,22 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    /*System.out.println("value0 " + test(0));
+    System.out.println("value1 " + test(1));
+    System.out.println("value2 " + test(2));
+    System.out.println("value3 " + test(3));*/
+    
     final Swerve swerve = Swerve.getInstance();
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+  }
+
+  public double test(int inputChannel) {
+    AnalogInput input = new AnalogInput(inputChannel);
+    double angle = (input.getVoltage() / RobotController.getVoltage5V()) * 360.0;
+    return angle;
   }
 
   /**
