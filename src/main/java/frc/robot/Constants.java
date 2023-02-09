@@ -21,7 +21,7 @@ import frc.robot.subsystems.SwerveModuleConstants;
 public class Constants {
     /** All joystick, button, and axis IDs. */
     public static class kControls {
-      public static final double AXIS_DEADZONE = 0.1;
+      public static final double AXIS_DEADZONE = 0.3;
 
       // Please test numbers 
       public static final int rTrigger = 5;
@@ -88,7 +88,7 @@ public class Constants {
       public static final double ANGLE_KF = 0.0;
       
       /** Swerve constraints. */
-      public static final double MAX_VELOCITY_METERS_PER_SECOND = 3.0;
+      public static final double MAX_VELOCITY_METERS_PER_SECOND = 4.0;
   
       /** Inversions. */
       public static final boolean DRIVE_MOTOR_INVERSION = true;

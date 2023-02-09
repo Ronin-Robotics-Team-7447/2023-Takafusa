@@ -63,7 +63,7 @@ public class RobotContainer {
 
     swerve = Swerve.getInstance();
     // m_intake = new Intake();
-    // auto = new AutoCommands(swerve, m_intake);
+    // auto = new AutoCommands(swerve);
     // m_IntakeBall = new IntakeBall(m_intake);   
     // m_OuttakeBall = new OuttakeBall(m_intake);
     // m_SuperIntake = new SuperIntake(m_intake);
@@ -79,19 +79,19 @@ public class RobotContainer {
     //eventMap.put("IntakeBall", m_IntakeBall);
 
     // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
-    SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
-        swerve::getPose, // Pose2d supplier
-        swerve::resetOdometry, // Pose2d consumer, used to reset odometry at the beginning of auto
-        Constants.kSwerve.KINEMATICS, // SwerveDriveKinematics
-        new PIDConstants(5.0, 0.0, 0.0), // PID constants to correct for translation error (used to create the X and Y PID controllers)
-        new PIDConstants(0.5, 0.0, 0.0), // PID constants to correct for rotation error (used to create the rotation controller)
-        swerve::setModuleStates, // Module states consumer used to output to the drive subsystem
-        eventMap,
-        true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
-        swerve // The drive subsystem. Used to properly set the requirements of path following commands
-    );
+    // SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
+    //     swerve::getPose, // Pose2d supplier
+    //     swerve::resetOdometry, // Pose2d consumer, used to reset odometry at the beginning of auto
+    //     Constants.kSwerve.KINEMATICS, // SwerveDriveKinematics
+    //     new PIDConstants(5.0, 0.0, 0.0), // PID constants to correct for translation error (used to create the X and Y PID controllers)
+    //     new PIDConstants(0.5, 0.0, 0.0), // PID constants to correct for rotation error (used to create the rotation controller)
+    //     swerve::setModuleStates, // Module states consumer used to output to the drive subsystem
+    //     eventMap,
+    //     true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
+    //     swerve // The drive subsystem. Used to properly set the requirements of path following commands
+    // );
 
-    //Command auto_name_command = autoBuilder.fullAuto(pathGroup);
+    // Command auto_name_command = autoBuilder.fullAuto(pathGroup);
 
     // Configure button bindings
     configureButtonBindings();
@@ -107,18 +107,18 @@ public class RobotContainer {
     SlewRateLimiter filter = new SlewRateLimiter(0.5);
 
     // swerve.setDefaultCommand(swerve.drive(
-    //    () -> filter.calculate(-driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS)),
-    //    () -> driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS),
-    //    () -> filter.calculate(-driver.getRawAxis(Constants.kControls.ROTATION_AXIS)),
-    //    true,
-    //    false
+    //     () -> filter.calculate(-driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS)),
+    //     () -> filter.calculate(driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS)),
+    //     () -> -driver.getRawAxis(Constants.kControls.ROTATION_AXIS),
+    //     true,
+    //     false
     // ));
 
     swerve.setDefaultCommand(swerve.drive(
        () -> -driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS),
        () -> driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS),
        () -> -driver.getRawAxis(Constants.kControls.ROTATION_AXIS),
-       true,
+       false,
        false
     ));
 
@@ -139,7 +139,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    //return auto.getSelectedCommand();
+    // return auto.getSelectedCommand();
     return null;
   }
 }

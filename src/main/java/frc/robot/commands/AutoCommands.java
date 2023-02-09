@@ -22,15 +22,13 @@ import frc.robot.subsystems.Swerve;
  */
 public class AutoCommands {
   private final Swerve swerve;
-  private final Intake intake;
   private final SendableChooser<Command> dropDown;
 
   /**
    * Define all auto commands.
    */
-  public AutoCommands(Swerve swerve, Intake intake) {
+  public AutoCommands(Swerve swerve) {
     this.swerve = swerve;
-    this.intake = intake;
 
     dropDown = new SendableChooser<>();
     dropDown.addOption("the test auto", run(() -> {

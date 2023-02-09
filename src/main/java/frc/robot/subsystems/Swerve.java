@@ -67,9 +67,9 @@ public class Swerve extends SubsystemBase {
       double rotation = rotationAxis.getAsDouble() * Constants.kSwerve.MAX_VELOCITY_METERS_PER_SECOND;
 
       // Adding deadzone.
-      // forwardBack = Math.abs(forwardBack) < Constants.kControls.AXIS_DEADZONE ? 0 : forwardBack;
-      // leftRight = Math.abs(leftRight) < Constants.kControls.AXIS_DEADZONE ? 0 : leftRight;
-      // rotation = Math.abs(rotation) < Constants.kControls.AXIS_DEADZONE ? 0 : rotation;
+      forwardBack = Math.abs(forwardBack) < Constants.kControls.AXIS_DEADZONE ? 0 : forwardBack;
+      leftRight = Math.abs(leftRight) < Constants.kControls.AXIS_DEADZONE ? 0 : leftRight;
+      rotation = Math.abs(rotation) < Constants.kControls.AXIS_DEADZONE ? 0 : rotation;
 
       // Get desired module states.
       ChassisSpeeds chassisSpeeds = isFieldRelative
