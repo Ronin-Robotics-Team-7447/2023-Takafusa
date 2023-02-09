@@ -163,26 +163,4 @@ public class Swerve extends SubsystemBase {
           null);
     }
   }
-
-  public void setAutoPath(Trajectory trajectory) {
-    //TODO
-  }
-
-  public void stopMovement() {
-    //TODO
-  }
-
-  public boolean isFinished() {
-    //TODO
-    return false;
-  }
-
-  public double getAutoElapsedTime() {
-    //TODO
-    return 0;
-  }
-
-  public void resetPosition(Translation2d pose) {
-    // TODO
-  }
 }
