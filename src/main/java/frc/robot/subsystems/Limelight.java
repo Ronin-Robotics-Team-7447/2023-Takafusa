@@ -14,7 +14,7 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 public class Limelight extends SubsystemBase {
     public  final PhotonCamera camera;
@@ -62,7 +62,7 @@ public class Limelight extends SubsystemBase {
     public static Pose3d getRobotPoseFromTarget(PhotonTrackedTarget target) {
         Transform3d cameraToTarget = target.getBestCameraToTarget();
 
-        java.util.Optional<Pose3d> feducialPos = Constants.kVision.APRIL_TAG_FIELD_LAYOUT.getTagPose(target.getFiducialId());
+        Optional<Pose3d> feducialPos = Constants.kVision.APRIL_TAG_FIELD_LAYOUT.getTagPose(target.getFiducialId());
 
         if (feducialPos.isEmpty()) {
             return null;
