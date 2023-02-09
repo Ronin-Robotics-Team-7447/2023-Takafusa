@@ -24,7 +24,7 @@ public class OuttakeBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_takeinout.IntakeSpeed(Constants.speed_out);
+    m_takeinout.IntakeSpeed(Constants.kIntake.speed_out);
   }
 
   // Called once the command ends or is interrupted.

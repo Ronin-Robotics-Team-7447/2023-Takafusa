@@ -4,11 +4,19 @@
 
 package frc.robot;
 
+import java.io.IOException;
+
 import com.revrobotics.CANSparkMax.IdleMode;
 
+import edu.wpi.first.apriltag.AprilTag;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.SwerveModuleConstants;
 
@@ -145,11 +153,43 @@ public class Constants {
       public static final double MAX_VELOCITY_METERS_PER_SECOND = 10.0;
       public static final double MAX_ACCEL_METERS_PER_SECOND_SQUARED = 9.0;
     }
-//Intakes Constants
-    public static final int takeInOut = 1;
-    public static final double speed_in = 0.5;
-    public static final double speed_out = -0.5;
-    public static final double hold_speed = 0.1;
-    public static final double highSpeed_in = 0.8;
-    public static final double highSpeed_out = -0.8;
+    //Intakes Constants
+    public static class kIntake {
+      public static final int takeInOut = 1;
+      public static final double speed_in = 0.5;
+      public static final double speed_out = -0.5;
+      public static final double hold_speed = 0.1;
+      public static final double highSpeed_in = 0.8;
+      public static final double highSpeed_out = -0.8;
+    }
+
+    // Vision Constants
+    public static class kVision {
+      public static final Translation3d CAMERA_POS_METERS = new Translation3d(
+        Units.inchesToMeters(0),
+        Units.inchesToMeters(0),
+        Units.inchesToMeters(0)
+      );
+
+      public static final Rotation3d CAMERA_PITCH_RADIANS = new Rotation3d(
+        Units.degreesToRadians(0),
+        Units.degreesToRadians(0),
+        Units.degreesToRadians(0)
+      ).unaryMinus();
+      
+      public static final Transform3d CAMERA_TO_ROBOT_METERS_DEGREES = new Transform3d(
+        CAMERA_POS_METERS.unaryMinus(), 
+        CAMERA_PITCH_RADIANS
+      ); 
+
+      public static final AprilTagFieldLayout APRIL_TAG_FIELD_LAYOUT = createFieldLayout();
+
+      private static AprilTagFieldLayout createFieldLayout() {
+        try {
+          return new AprilTagFieldLayout(Filesystem.getDeployDirectory().toPath().resolve("april-tag-layout.json"));
+        } catch( IOException e ) {
+          throw new Error(e);
+        }
+      }
+    }
   }

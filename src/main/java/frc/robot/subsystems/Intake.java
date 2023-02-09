@@ -15,7 +15,7 @@ public class Intake extends SubsystemBase {
   CANSparkMax m_intake;
 
   public Intake (){
-    m_intake = new CANSparkMax(Constants.takeInOut, MotorType.kBrushless);
+    m_intake = new CANSparkMax(Constants.kIntake.takeInOut, MotorType.kBrushless);
   }
 
   @Override
@@ -24,23 +24,23 @@ public class Intake extends SubsystemBase {
   }
 
   public void IntakeSpeed(double speedOut) {
-    m_intake.set(Constants.speed_in);
+    m_intake.set(Constants.kIntake.speed_in);
   }
 
   public void OuttakeSpeed() {
-    m_intake.set(Constants.speed_out);
+    m_intake.set(Constants.kIntake.speed_out);
   }
 
   public void HoldSpeed() {
-    m_intake.set(Constants.hold_speed);
+    m_intake.set(Constants.kIntake.hold_speed);
   }
 
   public void HighIntakeSpeed() {
-    m_intake.set(Constants.highSpeed_in);
+    m_intake.set(Constants.kIntake.highSpeed_in);
   }
 
   public void LowIntakeSpeed() {
-    m_intake.set(Constants.highSpeed_out);
+    m_intake.set(Constants.kIntake.highSpeed_out);
   }
 
 

@@ -24,7 +24,7 @@ public class SuperIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.IntakeSpeed(Constants.highSpeed_in);
+    m_intake.IntakeSpeed(Constants.kIntake.highSpeed_in);
   }
   
   // Called once the command ends or is interrupted.
