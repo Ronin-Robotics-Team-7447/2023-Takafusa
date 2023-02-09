@@ -45,10 +45,10 @@ public class Constants {
       public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
   
       public static final SwerveDriveKinematics KINEMATICS = new SwerveDriveKinematics(
-        new Translation2d(WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
         new Translation2d(WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
-        new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
-        new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0)
+        new Translation2d(WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
+        new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
+        new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0)
       );
   
       public static final double DRIVE_GEAR_RATIO = 7.13 / 1.0; // 6.75:1
@@ -88,7 +88,7 @@ public class Constants {
       public static final double ANGLE_KF = 0.0;
       
       /** Swerve constraints. */
-      public static final double MAX_VELOCITY_METERS_PER_SECOND = 2.0;
+      public static final double MAX_VELOCITY_METERS_PER_SECOND = 3.0;
   
       /** Inversions. */
       public static final boolean DRIVE_MOTOR_INVERSION = true;
@@ -142,8 +142,8 @@ public class Constants {
       public static final double THETA_CONTROLLER_KP = 1.0;
       
       /** Constraints. */
-      public static final double MAX_VELOCITY_METERS_PER_SECOND = 2.0;
-      public static final double MAX_ACCEL_METERS_PER_SECOND_SQUARED = 5.0;
+      public static final double MAX_VELOCITY_METERS_PER_SECOND = 10.0;
+      public static final double MAX_ACCEL_METERS_PER_SECOND_SQUARED = 9.0;
     }
 //Intakes Constants
     public static final int takeInOut = 1;

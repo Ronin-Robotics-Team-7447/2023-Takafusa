@@ -107,19 +107,19 @@ public class RobotContainer {
     SlewRateLimiter filter = new SlewRateLimiter(0.5);
 
     // swerve.setDefaultCommand(swerve.drive(
-    //   () -> filter.calculate(-driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS)),
-    //   () -> -driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS),
-    //   () -> filter.calculate(-driver.getRawAxis(Constants.kControls.ROTATION_AXIS)),
-    //   true,
-    //   false
+    //    () -> filter.calculate(-driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS)),
+    //    () -> driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS),
+    //    () -> filter.calculate(-driver.getRawAxis(Constants.kControls.ROTATION_AXIS)),
+    //    true,
+    //    false
     // ));
 
     swerve.setDefaultCommand(swerve.drive(
-      () -> -driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS),
-      () -> -driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS),
-      () -> -driver.getRawAxis(Constants.kControls.ROTATION_AXIS),
-      true,
-      false
+       () -> -driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS),
+       () -> driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS),
+       () -> -driver.getRawAxis(Constants.kControls.ROTATION_AXIS),
+       true,
+       false
     ));
 
     //  BUTTONS

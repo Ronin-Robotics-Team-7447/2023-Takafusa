@@ -62,9 +62,9 @@ public class Swerve extends SubsystemBase {
   public Command drive(DoubleSupplier forwardBackAxis, DoubleSupplier leftRightAxis, DoubleSupplier rotationAxis, boolean isFieldRelative, boolean isOpenLoop) {
     return run(() -> {
       // Grabbing input from suppliers.
-      double forwardBack = forwardBackAxis.getAsDouble();
-      double leftRight = leftRightAxis.getAsDouble();
-      double rotation = rotationAxis.getAsDouble();
+      double forwardBack = forwardBackAxis.getAsDouble() * Constants.kSwerve.MAX_VELOCITY_METERS_PER_SECOND;
+      double leftRight = leftRightAxis.getAsDouble() * Constants.kSwerve.MAX_VELOCITY_METERS_PER_SECOND;
+      double rotation = rotationAxis.getAsDouble() * Constants.kSwerve.MAX_VELOCITY_METERS_PER_SECOND;
 
       // Adding deadzone.
       // forwardBack = Math.abs(forwardBack) < Constants.kControls.AXIS_DEADZONE ? 0 : forwardBack;
