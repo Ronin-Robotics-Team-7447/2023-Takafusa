@@ -29,7 +29,7 @@ import frc.robot.subsystems.SwerveModuleConstants;
 public class Constants {
     /** All joystick, button, and axis IDs. */
     public static class kControls {
-      public static final double AXIS_DEADZONE = 0.3;
+      public static final double AXIS_DEADZONE = 0.35;
 
       // Please test numbers 
       public static final int rTrigger = 5;
@@ -75,8 +75,8 @@ public class Constants {
       public static final double CLOSED_LOOP_RAMP = 0.0;
   
       /** Current limiting. */
-      public static final int DRIVE_CURRENT_LIMIT = 35;
-      public static final int ANGLE_CURRENT_LIMIT = 25;
+      public static final int DRIVE_CURRENT_LIMIT = 20;
+      public static final int ANGLE_CURRENT_LIMIT = 10;
   
       /** Drive motor PID values. */
       public static final double DRIVE_KP = 0.1;
@@ -96,7 +96,9 @@ public class Constants {
       public static final double ANGLE_KF = 0.0;
       
       /** Swerve constraints. */
-      public static final double MAX_VELOCITY_METERS_PER_SECOND = 4.0;
+      public static final double MAX_VELOCITY_DRIVE_METERS_PER_SECOND = 3.0;
+      public static final double MAX_VELOCITY_ROTATE_METERS_PER_SECOND = 3.0;
+      public static final double SLOW_SPEED = 1.5;
   
       /** Inversions. */
       public static final boolean DRIVE_MOTOR_INVERSION = true;

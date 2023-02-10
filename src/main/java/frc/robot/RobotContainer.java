@@ -45,7 +45,7 @@ public class RobotContainer {
   public XboxController m_XboxController;
 
   public final Swerve swerve;
-  // public final AutoCommands auto;
+  public final AutoCommands auto;
   // private final IntakeBall m_IntakeBall;
   // private final OuttakeBall m_OuttakeBall;
   // private final SuperIntake m_SuperIntake;
@@ -63,7 +63,7 @@ public class RobotContainer {
 
     swerve = Swerve.getInstance();
     // m_intake = new Intake();
-    // auto = new AutoCommands(swerve);
+    auto = new AutoCommands(swerve);
     // m_IntakeBall = new IntakeBall(m_intake);   
     // m_OuttakeBall = new OuttakeBall(m_intake);
     // m_SuperIntake = new SuperIntake(m_intake);
@@ -118,7 +118,7 @@ public class RobotContainer {
        () -> -driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS),
        () -> driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS),
        () -> -driver.getRawAxis(Constants.kControls.ROTATION_AXIS),
-       false,
+       true,
        false
     ));
 
@@ -139,7 +139,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // return auto.getSelectedCommand();
-    return null;
+    return auto.getSelectedCommand();
+    // return null;
   }
 }

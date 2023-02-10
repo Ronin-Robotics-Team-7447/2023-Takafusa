@@ -60,14 +60,14 @@ public class SwerveModule {
     state = SwerveModuleState.optimize(state, getState().angle);
 
     if (isOpenLoop) {
-      double speed = state.speedMetersPerSecond / Constants.kSwerve.MAX_VELOCITY_METERS_PER_SECOND;
+      double speed = state.speedMetersPerSecond / Constants.kSwerve.MAX_VELOCITY_DRIVE_METERS_PER_SECOND;
       drivePID.setReference(speed, CANSparkMax.ControlType.kDutyCycle);
     } else {
       SmartDashboard.putNumber("Speed: ", state.speedMetersPerSecond);
       drivePID.setReference(state.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity, 0, driveFeedforward.calculate(state.speedMetersPerSecond));
     }
 
-    double angle = Math.abs(state.speedMetersPerSecond) <= Constants.kSwerve.MAX_VELOCITY_METERS_PER_SECOND * 0.01
+    double angle = Math.abs(state.speedMetersPerSecond) <= Constants.kSwerve.MAX_VELOCITY_ROTATE_METERS_PER_SECOND * 0.01
       ? lastAngle
       : state.angle.getRadians();
 

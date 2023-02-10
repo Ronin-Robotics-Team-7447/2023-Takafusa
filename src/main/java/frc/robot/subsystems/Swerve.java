@@ -14,6 +14,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -23,7 +24,7 @@ public class Swerve extends SubsystemBase {
 
   private final SwerveDriveOdometry swerveOdometry;
 
-  private final AHRS gyro;
+  AHRS gyro;
 
   private static Swerve INSTANCE;
 
@@ -60,11 +61,13 @@ public class Swerve extends SubsystemBase {
    * Double suppliers are just any function that returns a double.
    */
   public Command drive(DoubleSupplier forwardBackAxis, DoubleSupplier leftRightAxis, DoubleSupplier rotationAxis, boolean isFieldRelative, boolean isOpenLoop) {
+    Shuffleboard.getTab("Gyro Direction").add(gyro);;
+
     return run(() -> {
       // Grabbing input from suppliers.
-      double forwardBack = forwardBackAxis.getAsDouble() * Constants.kSwerve.MAX_VELOCITY_METERS_PER_SECOND;
-      double leftRight = leftRightAxis.getAsDouble() * Constants.kSwerve.MAX_VELOCITY_METERS_PER_SECOND;
-      double rotation = rotationAxis.getAsDouble() * Constants.kSwerve.MAX_VELOCITY_METERS_PER_SECOND;
+      double forwardBack = forwardBackAxis.getAsDouble() * Constants.kSwerve.MAX_VELOCITY_DRIVE_METERS_PER_SECOND;
+      double leftRight = leftRightAxis.getAsDouble() * Constants.kSwerve.MAX_VELOCITY_DRIVE_METERS_PER_SECOND;
+      double rotation = rotationAxis.getAsDouble() * Constants.kSwerve.MAX_VELOCITY_ROTATE_METERS_PER_SECOND;
 
       // Adding deadzone.
       forwardBack = Math.abs(forwardBack) < Constants.kControls.AXIS_DEADZONE ? 0 : forwardBack;
@@ -89,7 +92,7 @@ public class Swerve extends SubsystemBase {
 
   private void setModuleStates(SwerveModuleState[] states, boolean isOpenLoop) {
     // Makes sure the module states don't exceed the max speed.
-    SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.kSwerve.MAX_VELOCITY_METERS_PER_SECOND);
+    SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.kSwerve.MAX_VELOCITY_DRIVE_METERS_PER_SECOND);
 
     for (int i = 0; i < modules.length; i++) {
       modules[i].setState(states[modules[i].moduleNumber], isOpenLoop);
@@ -115,7 +118,7 @@ public class Swerve extends SubsystemBase {
   }
 
   public Rotation2d getYaw() {
-    return Rotation2d.fromDegrees(-gyro.getYaw());
+    return Rotation2d.fromDegrees(gyro.getYaw());
   }
 
   public Command zeroGyroCommand() {
