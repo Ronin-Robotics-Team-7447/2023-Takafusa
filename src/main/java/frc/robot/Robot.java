@@ -4,6 +4,14 @@
 
 package frc.robot;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.json.simple.parser.ParseException;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -17,8 +25,8 @@ import frc.robot.subsystems.Swerve;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
   private RobotContainer m_robotContainer;
+  final Swerve swerve = Swerve.getInstance();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -26,8 +34,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    final Swerve swerve = Swerve.getInstance();
-
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
@@ -51,7 +57,20 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    // Set the angle of each wheel rotation when disabled
+    JSONManager jsonManager;
+    try {
+      jsonManager = new JSONManager();
+      for( int i=0; i < Swerve.getInstance().getStates().length; i++ ) {
+        System.out.println(i + " before " + jsonManager.getModuleDegrees(i));
+        jsonManager.setModuleRadians(i, Swerve.getInstance().getStates()[i].angle.getDegrees());
+      }
+      System.out.println(0 + " after " + jsonManager.getModuleDegrees(0));
+    } catch (IOException | ParseException e) {
+      e.printStackTrace();
+    }
+  }
 
   @Override
   public void disabledPeriodic() {}

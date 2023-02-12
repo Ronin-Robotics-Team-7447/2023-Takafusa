@@ -66,6 +66,6 @@ public class AutoCommands {
         swerve::setModuleStates,
         swerve),
 
-      swerve.drive(() -> 0.0, () -> 0.0, () -> 0.0, true, false));
+      swerve.drive(() -> 0.0, () -> 0.0, () -> 0.0, true, false, Constants.kSwerve.MAX_VELOCITY_DRIVE_METERS_PER_SECOND, Constants.kSwerve.MAX_VELOCITY_ROTATE_METERS_PER_SECOND));
   }
 }

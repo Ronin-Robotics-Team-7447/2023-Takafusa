@@ -60,14 +60,14 @@ public class Swerve extends SubsystemBase {
    * 
    * Double suppliers are just any function that returns a double.
    */
-  public Command drive(DoubleSupplier forwardBackAxis, DoubleSupplier leftRightAxis, DoubleSupplier rotationAxis, boolean isFieldRelative, boolean isOpenLoop) {
-    Shuffleboard.getTab("Gyro Direction").add(gyro);;
+  public Command drive(DoubleSupplier forwardBackAxis, DoubleSupplier leftRightAxis, DoubleSupplier rotationAxis, boolean isFieldRelative, boolean isOpenLoop, double UserDriveSpeed, double UserRotateSpeed) {
+    // Shuffleboard.getTab("Gyro Direction").add(gyro);;
 
     return run(() -> {
       // Grabbing input from suppliers.
-      double forwardBack = forwardBackAxis.getAsDouble() * Constants.kSwerve.MAX_VELOCITY_DRIVE_METERS_PER_SECOND;
-      double leftRight = leftRightAxis.getAsDouble() * Constants.kSwerve.MAX_VELOCITY_DRIVE_METERS_PER_SECOND;
-      double rotation = rotationAxis.getAsDouble() * Constants.kSwerve.MAX_VELOCITY_ROTATE_METERS_PER_SECOND;
+      double forwardBack = forwardBackAxis.getAsDouble() * UserDriveSpeed;
+      double leftRight = leftRightAxis.getAsDouble() * UserDriveSpeed;
+      double rotation = rotationAxis.getAsDouble() * UserRotateSpeed;
 
       // Adding deadzone.
       forwardBack = Math.abs(forwardBack) < Constants.kControls.AXIS_DEADZONE ? 0 : forwardBack;

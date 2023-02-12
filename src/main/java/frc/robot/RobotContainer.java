@@ -41,11 +41,12 @@ public class RobotContainer {
   // public final Trigger yButton;
   // public final Trigger bButton;  
   // public final Trigger aButton;
+  public final Trigger lStick;
 
   public XboxController m_XboxController;
 
   public final Swerve swerve;
-  public final AutoCommands auto;
+  // public final AutoCommands auto;
   // private final IntakeBall m_IntakeBall;
   // private final OuttakeBall m_OuttakeBall;
   // private final SuperIntake m_SuperIntake;
@@ -60,10 +61,11 @@ public class RobotContainer {
     // yButton = new JoystickButton(driver, 4);
     // bButton = new JoystickButton(driver, 3);
     // aButton = new JoystickButton(driver, 2);
+    lStick = new JoystickButton(driver, Constants.kControls.lStick);
 
     swerve = Swerve.getInstance();
     // m_intake = new Intake();
-    auto = new AutoCommands(swerve);
+    // auto = new AutoCommands(swerve);
     // m_IntakeBall = new IntakeBall(m_intake);   
     // m_OuttakeBall = new OuttakeBall(m_intake);
     // m_SuperIntake = new SuperIntake(m_intake);
@@ -119,7 +121,30 @@ public class RobotContainer {
        () -> driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS),
        () -> -driver.getRawAxis(Constants.kControls.ROTATION_AXIS),
        true,
-       false
+       false,
+       Constants.kSwerve.MAX_VELOCITY_DRIVE_METERS_PER_SECOND,
+       Constants.kSwerve.MAX_VELOCITY_ROTATE_METERS_PER_SECOND
+    ));
+
+    // Put on smartdashboard that speed is slowed or normal
+    lStick.onTrue(swerve.drive(
+      () -> -driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS),
+      () -> driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS),
+      () -> -driver.getRawAxis(Constants.kControls.ROTATION_AXIS),
+      true,
+      false,
+      Constants.kSwerve.SLOW_SPEED,
+      Constants.kSwerve.SLOW_SPEED
+    ));
+
+    lStick.onFalse(swerve.drive(
+      () -> -driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS),
+      () -> driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS),
+      () -> -driver.getRawAxis(Constants.kControls.ROTATION_AXIS),
+      true,
+      false,
+      Constants.kSwerve.MAX_VELOCITY_DRIVE_METERS_PER_SECOND,
+      Constants.kSwerve.MAX_VELOCITY_ROTATE_METERS_PER_SECOND
     ));
 
     //  BUTTONS
@@ -139,7 +164,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return auto.getSelectedCommand();
-    // return null;
+    // return auto.getSelectedCommand();
+    return null;
   }
 }

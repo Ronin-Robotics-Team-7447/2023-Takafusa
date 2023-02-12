@@ -34,6 +34,7 @@ public class Constants {
       // Please test numbers 
       public static final int rTrigger = 5;
       public static final int lTrigger = 6;
+      public static final int lStick = 9;
   
       public static final int DRIVE_JOYSTICK_ID = 0;
   
@@ -68,7 +69,6 @@ public class Constants {
   
       // Joystick Port Constants
       public static final int joystickPort = 0;
-
 
       /** Speed ramp. */
       public static final double OPEN_LOOP_RAMP = 0.25;
