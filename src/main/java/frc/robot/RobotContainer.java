@@ -25,6 +25,7 @@ import frc.robot.commands.SuperIntake;
 import frc.robot.commands.SuperOuttake;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
+import frc.robot.Constants.kSwerve;
 import frc.robot.commands.AutoCommands;
 
 /**
@@ -34,6 +35,7 @@ import frc.robot.commands.AutoCommands;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  Command auto_name_command;
   public final Joystick driver;
   // public final Trigger lTrigger;  
   // public final Trigger rTrigger;
@@ -73,7 +75,7 @@ public class RobotContainer {
 
     // This will load the file "FullAuto.path" and generate it with a max velocity of 4 m/s and a max acceleration of 3 m/s^2
     // for every path in the group
-    List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("FullAuto", new PathConstraints(4, 3));
+    List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("inf", new PathConstraints(4, 3));
 
     // This is just an example event map. It would be better to have a constant, global event map
     // in your code that will be used by all path following commands.
@@ -81,19 +83,19 @@ public class RobotContainer {
     //eventMap.put("IntakeBall", m_IntakeBall);
 
     // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
-    // SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
-    //     swerve::getPose, // Pose2d supplier
-    //     swerve::resetOdometry, // Pose2d consumer, used to reset odometry at the beginning of auto
-    //     Constants.kSwerve.KINEMATICS, // SwerveDriveKinematics
-    //     new PIDConstants(5.0, 0.0, 0.0), // PID constants to correct for translation error (used to create the X and Y PID controllers)
-    //     new PIDConstants(0.5, 0.0, 0.0), // PID constants to correct for rotation error (used to create the rotation controller)
-    //     swerve::setModuleStates, // Module states consumer used to output to the drive subsystem
-    //     eventMap,
-    //     true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
-    //     swerve // The drive subsystem. Used to properly set the requirements of path following commands
-    // );
+    SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
+        swerve::getPose, // Pose2d supplier
+        swerve::resetOdometry, // Pose2d consumer, used to reset odometry at the beginning of auto
+        Constants.kSwerve.KINEMATICS, // SwerveDriveKinematics
+        new PIDConstants(Constants.kSwerve.DRIVE_KP, Constants.kSwerve.DRIVE_KI, Constants.kSwerve.DRIVE_KD), // PID constants to correct for translation error (used to create the X and Y PID controllers)
+        new PIDConstants(Constants.kSwerve.ANGLE_KP, Constants.kSwerve.ANGLE_KI, Constants.kSwerve.ANGLE_KD), // PID constants to correct for rotation error (used to create the rotation controller)
+        swerve::setModuleStates, // Module states consumer used to output to the drive subsystem
+        eventMap,
+        true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
+        swerve // The drive subsystem. Used to properly set the requirements of path following commands
+    );
 
-    // Command auto_name_command = autoBuilder.fullAuto(pathGroup);
+    auto_name_command = autoBuilder.fullAuto(pathGroup);
 
     // Configure button bindings
     configureButtonBindings();
@@ -165,6 +167,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // return auto.getSelectedCommand();
-    return null;
+    return auto_name_command;
   }
 }

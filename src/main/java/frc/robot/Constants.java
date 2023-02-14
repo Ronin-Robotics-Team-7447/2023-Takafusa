@@ -79,7 +79,7 @@ public class Constants {
       public static final int ANGLE_CURRENT_LIMIT = 10;
   
       /** Drive motor PID values. */
-      public static final double DRIVE_KP = 0.1;
+      public static final double DRIVE_KP = 0.0;
       public static final double DRIVE_KI = 0.0;
       public static final double DRIVE_KD = 0.0;
       public static final double DRIVE_KF = 0.0;
@@ -90,9 +90,9 @@ public class Constants {
       public static final double DRIVE_KA = 0.46034;
   
       /** Angle motor PID values. */
-      public static final double ANGLE_KP = 1.5;
+      public static final double ANGLE_KP = 0.1;
       public static final double ANGLE_KI = 0.0;
-      public static final double ANGLE_KD = 0.1;
+      public static final double ANGLE_KD = 0.0;
       public static final double ANGLE_KF = 0.0;
       
       /** Swerve constraints. */
