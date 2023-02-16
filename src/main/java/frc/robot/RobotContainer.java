@@ -23,6 +23,9 @@ import frc.robot.commands.IntakeBall;
 import frc.robot.commands.OuttakeBall;
 import frc.robot.commands.SuperIntake;
 import frc.robot.commands.SuperOuttake;
+import frc.robot.commands.lowerArm;
+import frc.robot.commands.raiseArm;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
 import frc.robot.Constants.kSwerve;
@@ -37,8 +40,8 @@ import frc.robot.commands.AutoCommands;
 public class RobotContainer {
   Command auto_name_command;
   public final Joystick driver;
-  // public final Trigger lTrigger;  
-  // public final Trigger rTrigger;
+  public final Trigger lTrigger;  
+  public final Trigger rTrigger;
   // public final Trigger xButton;  
   // public final Trigger yButton;
   // public final Trigger bButton;  
@@ -48,6 +51,10 @@ public class RobotContainer {
   public XboxController m_XboxController;
 
   public final Swerve swerve;
+  public final Arm arm;
+
+  private final lowerArm m_lowerArm;
+  private final raiseArm m_raiseArm;
   // public final AutoCommands auto;
   // private final IntakeBall m_IntakeBall;
   // private final OuttakeBall m_OuttakeBall;
@@ -57,17 +64,23 @@ public class RobotContainer {
 
   public RobotContainer() {
     driver = new Joystick(Constants.kControls.DRIVE_JOYSTICK_ID);
-    // lTrigger = new JoystickButton(driver, Constants.kControls.lTrigger);
-    // rTrigger = new JoystickButton(driver, Constants.kControls.rTrigger);
+    arm = new Arm();
+    lTrigger = new JoystickButton(driver, Constants.kControls.lTrigger);
+    rTrigger = new JoystickButton(driver, Constants.kControls.rTrigger);
     // xButton = new JoystickButton(driver, 1);
     // yButton = new JoystickButton(driver, 4);
     // bButton = new JoystickButton(driver, 3);
     // aButton = new JoystickButton(driver, 2);
     lStick = new JoystickButton(driver, Constants.kControls.lStick);
 
+
     swerve = Swerve.getInstance();
+
+
     // m_intake = new Intake();
     // auto = new AutoCommands(swerve);
+    m_raiseArm = new raiseArm(arm);
+    m_lowerArm = new lowerArm(arm);
     // m_IntakeBall = new IntakeBall(m_intake);   
     // m_OuttakeBall = new OuttakeBall(m_intake);
     // m_SuperIntake = new SuperIntake(m_intake);
@@ -108,8 +121,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    SlewRateLimiter filter = new SlewRateLimiter(0.5);
-
     // swerve.setDefaultCommand(swerve.drive(
     //     () -> filter.calculate(-driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS)),
     //     () -> filter.calculate(driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS)),
@@ -151,8 +162,8 @@ public class RobotContainer {
 
     //  BUTTONS
 
-    // lTrigger.onTrue(m_IntakeBall);
-    // rTrigger.onTrue(m_OuttakeBall);
+    lTrigger.onTrue(m_lowerArm);
+    rTrigger.onTrue(m_raiseArm);
     // bButton.onTrue(m_SuperIntake);
     // xButton.onTrue(m_SuperOuttake);
 

@@ -37,6 +37,7 @@ public class Constants {
       public static final int lStick = 9;
   
       public static final int DRIVE_JOYSTICK_ID = 0;
+      public static final int ArmID = 9;
   
       public static final int TRANSLATION_X_AXIS = XboxController.Axis.kLeftX.value;
       public static final int TRANSLATION_Y_AXIS = XboxController.Axis.kLeftY.value;
