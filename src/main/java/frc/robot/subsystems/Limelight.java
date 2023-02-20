@@ -6,6 +6,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -15,6 +16,9 @@ import frc.robot.Constants;
 
 import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.HttpCamera;
+import edu.wpi.first.cscore.HttpCamera.HttpCameraKind;
 import edu.wpi.first.math.geometry.Pose2d;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -24,53 +28,43 @@ import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
-
-
-
-
-
+import org.photonvision.common.hardware.VisionLEDMode;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
+import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import java.util.Optional;
 
 public class Limelight extends SubsystemBase {
     public  final PhotonCamera camera;
-    private final NetworkTable table;
+    /*private final NetworkTable table;
     NetworkTableEntry tx;
     NetworkTableEntry ty;
-    NetworkTableEntry ta;
+    NetworkTableEntry ta;*/
 
     public Limelight() {
-        table = NetworkTableInstance.getDefault().getTable("limelight");
-        camera = new PhotonCamera("limelight");
-        tx = table.getEntry("tx");
-        ty = table.getEntry("ty");
-        ta = table.getEntry("ta");
+        camera = new PhotonCamera("OV5647");
+        camera.setLED(VisionLEDMode.kOn);
+        
+        final HttpCamera camera1 = new HttpCamera("OV5647", "http://photonvision.local:1181/?action=stream", HttpCameraKind.kMJPGStreamer);
+        CameraServer.addCamera(camera1);
+
+        //camera.setPipelineIndex(3);
     }
 
     @Override
     public void periodic() {
-        var result = camera.getLatestResult();
-
-        boolean hasTargets = result.hasTargets();
-        SmartDashboard.putBoolean("Target Detected", hasTargets);
-
-        // TODO: Just saving variable values for now
-        if( hasTargets ) {
-            SmartDashboard.putNumber("Tag ID", result.getBestTarget().getFiducialId());
-            SmartDashboard.putNumber("Pose Ambiguity", result.getBestTarget().getPoseAmbiguity());
-            
-            Transform3d bestCameraToTarget = result.getBestTarget().getBestCameraToTarget();
-            SmartDashboard.putNumber("X (roll)", Units.radiansToDegrees(bestCameraToTarget.getRotation().getX()));
-            SmartDashboard.putNumber("Y (pitch)", Units.radiansToDegrees(bestCameraToTarget.getRotation().getY()));
-            SmartDashboard.putNumber("Z (yaw)", Units.radiansToDegrees(bestCameraToTarget.getRotation().getZ()));
-            SmartDashboard.putNumber("x", bestCameraToTarget.getX());
-            SmartDashboard.putNumber("y", bestCameraToTarget.getY());
-            SmartDashboard.putNumber("z", bestCameraToTarget.getZ());
-        }
+        /*PhotonPipelineResult res = camera.getLatestResult();
+        
+        PhotonTrackedTarget bestTarget = res.getBestTarget();
+        SmartDashboard.putBoolean("targetDetected", res.hasTargets());
+        Pose3d bestPose = getRobotPoseFromTarget(bestTarget);
+        SmartDashboard.putNumber("X1", bestPose.getX());
+        SmartDashboard.putNumber("Y1", bestPose.getY());
+        SmartDashboard.putNumber("Z1", bestPose.getZ());*/
     }
+
     /*
      * TODO: Need to update the april-tag-layout.json file
      */

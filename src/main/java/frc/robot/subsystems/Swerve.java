@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.utility.NetworkTable.NtValueDisplay;
 
 public class Swerve extends SubsystemBase {
   private final SwerveModule[] modules;
@@ -51,6 +52,28 @@ public class Swerve extends SubsystemBase {
     };
 
     swerveOdometry = new SwerveDriveOdometry(Constants.kSwerve.KINEMATICS, getYaw(), getPositions());
+
+    NtValueDisplay.ntDispTab("Swerve")
+    .add("frontLeftEncoder", () -> getFrontLeft().getAngle().getDegrees())
+    .add("frontRightEncoder", () -> getFrontRight().getAngle().getDegrees())
+    .add("backLeftEncoder", () -> getBackLeft().getAngle().getDegrees())
+    .add("backRightEncoder", () -> getBackRight().getAngle().getDegrees());
+  }
+
+  public SwerveModule getFrontLeft(){
+    return modules[0];
+  }
+
+  public SwerveModule getFrontRight(){
+    return modules[1];
+  }
+
+  public SwerveModule getBackLeft(){
+    return modules[2];
+  }
+
+  public SwerveModule getBackRight(){
+    return modules[3];
   }
 
   /** 
@@ -83,6 +106,22 @@ public class Swerve extends SubsystemBase {
 
       setModuleStates(states, isOpenLoop);
     }).withName("SwerveDriveCommand");
+  }
+
+  /*public void drive(double forward, double strafe, double rotation, boolean isFieldRelative, boolean isAutoBalancing) {
+    ChassisSpeeds speeds = isFieldRelative
+        ? ChassisSpeeds.fromFieldRelativeSpeeds(
+            forward, strafe, rotation, getHeading())
+        : new ChassisSpeeds(forward, strafe, rotation);
+
+    // use kinematics (wheel placements) to convert overall robot state to array of
+    // individual module states
+    SwerveModuleState[] states = Constants.kSwerve.KINEMATICS.toSwerveModuleStates(speeds);
+    setModuleStates(states, isAutoBalancing);
+  }
+
+  private Rotation2d getHeading() {
+    return null;
   }
 
   /** To be used by auto. Use the drive method during teleop. */
@@ -119,6 +158,10 @@ public class Swerve extends SubsystemBase {
 
   public Rotation2d getYaw() {
     return Rotation2d.fromDegrees(gyro.getYaw());
+  }
+
+  public AHRS getNavX() {
+    return gyro;
   }
 
   public Command zeroGyroCommand() {

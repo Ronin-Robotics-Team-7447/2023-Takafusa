@@ -23,10 +23,12 @@ import frc.robot.commands.IntakeBall;
 import frc.robot.commands.OuttakeBall;
 import frc.robot.commands.SuperIntake;
 import frc.robot.commands.SuperOuttake;
+// frc.robot.commands.TF2AutoBalance;
 import frc.robot.commands.lowerArm;
 import frc.robot.commands.raiseArm;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Swerve;
 import frc.robot.Constants.kSwerve;
 import frc.robot.commands.AutoCommands;
@@ -45,7 +47,7 @@ public class RobotContainer {
   // public final Trigger xButton;  
   // public final Trigger yButton;
   // public final Trigger bButton;  
-  // public final Trigger aButton;
+  public final Trigger aButton;
   public final Trigger lStick;
 
   public XboxController m_XboxController;
@@ -55,6 +57,8 @@ public class RobotContainer {
 
   private final lowerArm m_lowerArm;
   private final raiseArm m_raiseArm;
+  //private final TF2AutoBalance m_AutoBalance;
+  private Limelight limelight;
   // public final AutoCommands auto;
   // private final IntakeBall m_IntakeBall;
   // private final OuttakeBall m_OuttakeBall;
@@ -65,12 +69,13 @@ public class RobotContainer {
   public RobotContainer() {
     driver = new Joystick(Constants.kControls.DRIVE_JOYSTICK_ID);
     arm = new Arm();
+    //limelight = new Limelight();
     lTrigger = new JoystickButton(driver, Constants.kControls.lTrigger);
     rTrigger = new JoystickButton(driver, Constants.kControls.rTrigger);
     // xButton = new JoystickButton(driver, 1);
     // yButton = new JoystickButton(driver, 4);
     // bButton = new JoystickButton(driver, 3);
-    // aButton = new JoystickButton(driver, 2);
+    aButton = new JoystickButton(driver, XboxController.Button.kX.value);
     lStick = new JoystickButton(driver, Constants.kControls.lStick);
 
 
@@ -81,6 +86,7 @@ public class RobotContainer {
     // auto = new AutoCommands(swerve);
     m_raiseArm = new raiseArm(arm);
     m_lowerArm = new lowerArm(arm);
+    //m_AutoBalance = new TF2AutoBalance(swerve);
     // m_IntakeBall = new IntakeBall(m_intake);   
     // m_OuttakeBall = new OuttakeBall(m_intake);
     // m_SuperIntake = new SuperIntake(m_intake);
@@ -129,6 +135,7 @@ public class RobotContainer {
     //     false
     // ));
 
+    SlewRateLimiter slew = new SlewRateLimiter(0.5);
     swerve.setDefaultCommand(swerve.drive(
        () -> -driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS),
        () -> driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS),
@@ -164,6 +171,8 @@ public class RobotContainer {
 
     lTrigger.onTrue(m_lowerArm);
     rTrigger.onTrue(m_raiseArm);
+    //aButton.onTrue(m_AutoBalance);
+
     // bButton.onTrue(m_SuperIntake);
     // xButton.onTrue(m_SuperOuttake);
 
